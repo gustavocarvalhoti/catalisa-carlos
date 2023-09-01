@@ -1,0 +1,261 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ContasService</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.factory.contabancaria.service</a>
+</div>
+
+<h1>Coverage Summary for Class: ContasService (com.factory.contabancaria.service)</h1>
+
+<table class="coverageStats">
+
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContasService</td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    2%
+  </span>
+  <span class="absValue">
+    (1/49)
+  </span>
+</td>
+</tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$56I99zyb</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$87rXhRQb</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$A2icGOnJ</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$bChKFr0y</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$Jqbvyatj</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$NuAJTCT3</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$oy6NMbnL</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$S09xl3op</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$S1un1LUt</td>
+  </tr>
+  <tr>
+    <td class="name">ContasService$MockitoMock$gQPgbslM$auxiliary$Z2hn7uL2</td>
+  </tr>
+<tr>
+  <td class="name"><strong>Total</strong></td>
+<td class="coverageStat">
+  <span class="percent">
+    11,1%
+  </span>
+  <span class="absValue">
+    (1/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    2%
+  </span>
+  <span class="absValue">
+    (1/49)
+  </span>
+</td>
+</tr>
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.factory.contabancaria.service;
+&nbsp;
+&nbsp;import com.factory.contabancaria.dto.ContaGetDTO;
+&nbsp;import com.factory.contabancaria.dto.ContaPostDTO;
+&nbsp;import com.factory.contabancaria.model.ContasModel;
+&nbsp;import com.factory.contabancaria.model.factory.ContaFactory;
+&nbsp;import com.factory.contabancaria.repository.ContasRepository;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.stereotype.Service;
+&nbsp;
+&nbsp;import java.math.BigDecimal;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@Service
+<b class="fc">&nbsp;public class ContasService {</b>
+&nbsp;    @Autowired
+&nbsp;    ContasRepository contasRepository;
+&nbsp;    @Autowired
+&nbsp;    ContaFactory contaFactory;
+&nbsp;
+&nbsp;    //métodos
+&nbsp;    public List&lt;ContasModel&gt; listarContas() {
+<b class="nc">&nbsp;        return contasRepository.findAll();</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public Optional&lt;ContasModel&gt; exibeContaPorId(Long id) {
+<b class="nc">&nbsp;        return contasRepository.findById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public ContasModel cadastrar(ContasModel contasModel, ContaFactory contaFactory) {
+<b class="nc">&nbsp;        BigDecimal resultado = contaFactory.tipoServicoConta(contasModel.getTipo_servico())</b>
+<b class="nc">&nbsp;                .calcular(contasModel.getValor_atual_conta(), contasModel.getValor_fornecido());</b>
+<b class="nc">&nbsp;        return contasRepository.save(contasModel);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    public ContasModel alterar(Long id, ContasModel contasModel) {
+&nbsp;
+<b class="nc">&nbsp;        ContasModel contacadastrada = exibeContaPorId(id).get();</b>
+&nbsp;
+<b class="nc">&nbsp;        if (contasModel.getNumero_conta() != null || contasModel.getAgencia() != null) {</b>
+<b class="nc">&nbsp;            contacadastrada.setNomeCliente(contasModel.getNomeCliente());</b>
+<b class="nc">&nbsp;            contacadastrada.setNumero_conta(contasModel.getNumero_conta());</b>
+<b class="nc">&nbsp;            contacadastrada.setAgencia(contasModel.getAgencia());</b>
+<b class="nc">&nbsp;            contacadastrada.setValor_fornecido(contasModel.getValor_fornecido());</b>
+<b class="nc">&nbsp;            contacadastrada.setTipo_servico(contasModel.getTipo_servico());</b>
+&nbsp;
+<b class="nc">&nbsp;            ContaFactory contaFactory = new ContaFactory();</b>
+<b class="nc">&nbsp;            contacadastrada.setValor_atual_conta(contaFactory.tipoServicoConta(contasModel.getTipo_servico())</b>
+<b class="nc">&nbsp;                    .calcular(contacadastrada.getValor_atual_conta(), contacadastrada.getValor_fornecido()));</b>
+&nbsp;        }
+&nbsp;
+<b class="nc">&nbsp;        return contasRepository.save(contacadastrada);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    public void deletarConta(Long id) {
+<b class="nc">&nbsp;        contasRepository.deleteById(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para cadastrar uma conta conforme o DTO
+&nbsp;    public ContasModel cadastrarContaDTO(ContaPostDTO contaPostDTO, ContaFactory contaFactory) {
+&nbsp;
+<b class="nc">&nbsp;        ContasModel contasModel = new ContasModel();</b>
+<b class="nc">&nbsp;        contasModel.setNomeCliente(contaPostDTO.getNomeCliente());</b>
+<b class="nc">&nbsp;        contasModel.setValor_atual_conta(contaPostDTO.getValor_atual_conta());</b>
+<b class="nc">&nbsp;        contasModel.setValor_fornecido(contaPostDTO.getValor_fornecido());</b>
+<b class="nc">&nbsp;        contasModel.setTipo_servico(contaPostDTO.getTipo_servico());</b>
+&nbsp;
+<b class="nc">&nbsp;        BigDecimal resultado = contaFactory.tipoServicoConta(contasModel.getTipo_servico())</b>
+<b class="nc">&nbsp;                .calcular(contasModel.getValor_atual_conta(), contasModel.getValor_fornecido());</b>
+&nbsp;
+<b class="nc">&nbsp;        contasModel.setValor_atual_conta(resultado);</b>
+&nbsp;
+<b class="nc">&nbsp;        return contasRepository.save(contasModel);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para listar todas as contas conforme o DTO
+&nbsp;    public List&lt;ContaGetDTO&gt; listarTodasContasDTO() {
+<b class="nc">&nbsp;        List&lt;ContasModel&gt; contas = contasRepository.findAll();</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;ContaGetDTO&gt; contaGetDTOS = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (ContasModel conta : contas) {</b>
+&nbsp;
+<b class="nc">&nbsp;            ContaGetDTO DTO = new ContaGetDTO();</b>
+<b class="nc">&nbsp;            DTO.setNumero_conta(conta.getNumero_conta());</b>
+<b class="nc">&nbsp;            DTO.setAgencia(conta.getAgencia());</b>
+<b class="nc">&nbsp;            DTO.setNomeCliente(conta.getNomeCliente());</b>
+<b class="nc">&nbsp;            DTO.setValor_atual_conta(conta.getValor_atual_conta());</b>
+&nbsp;
+<b class="nc">&nbsp;            contaGetDTOS.add(DTO);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return contaGetDTOS;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Método para listar contas por nome do usuário conforme DTO
+&nbsp;    public List&lt;ContaGetDTO&gt; listarContasPorNome(String nome_cliente) {
+<b class="nc">&nbsp;        List&lt;ContasModel&gt; contas = contasRepository.findByNomeCliente(nome_cliente);</b>
+&nbsp;
+<b class="nc">&nbsp;        List&lt;ContaGetDTO&gt; contaGetDTOS = new ArrayList&lt;&gt;();</b>
+<b class="nc">&nbsp;        for (ContasModel conta : contas) {</b>
+<b class="nc">&nbsp;            ContaGetDTO DTO = new ContaGetDTO();</b>
+<b class="nc">&nbsp;            DTO.setNumero_conta(conta.getNumero_conta());</b>
+<b class="nc">&nbsp;            DTO.setAgencia(conta.getAgencia());</b>
+<b class="nc">&nbsp;            DTO.setNomeCliente(conta.getNomeCliente());</b>
+<b class="nc">&nbsp;            DTO.setValor_atual_conta(conta.getValor_atual_conta());</b>
+&nbsp;
+<b class="nc">&nbsp;            contaGetDTOS.add(DTO);</b>
+<b class="nc">&nbsp;        }</b>
+&nbsp;
+<b class="nc">&nbsp;        return contaGetDTOS;</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-25 17:12</div>
+</div>
+</body>
+</html>

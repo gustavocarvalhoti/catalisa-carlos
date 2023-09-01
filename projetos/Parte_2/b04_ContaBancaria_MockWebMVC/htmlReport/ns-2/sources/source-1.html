@@ -1,0 +1,218 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=windows-1252"> 
+  <title>Coverage Report > ContasController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.factory.contabancaria.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: ContasController (com.factory.contabancaria.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+<th class="coverageStat 
+">
+  Class, %
+</th>
+<th class="coverageStat 
+">
+  Method, %
+</th>
+<th class="coverageStat 
+">
+  Line, %
+</th>
+</tr>
+<tr>
+  <td class="name">ContasController</td>
+<td class="coverageStat">
+  <span class="percent">
+    100%
+  </span>
+  <span class="absValue">
+    (1/1)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    33,3%
+  </span>
+  <span class="absValue">
+    (3/9)
+  </span>
+</td>
+<td class="coverageStat">
+  <span class="percent">
+    37,1%
+  </span>
+  <span class="absValue">
+    (13/35)
+  </span>
+</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.factory.contabancaria.controller;
+&nbsp;
+&nbsp;import com.factory.contabancaria.dto.ContaGetDTO;
+&nbsp;import com.factory.contabancaria.dto.ContaPostDTO;
+&nbsp;import com.factory.contabancaria.model.ContasModel;
+&nbsp;import com.factory.contabancaria.model.factory.ContaFactory;
+&nbsp;import com.factory.contabancaria.repository.ContasRepository;
+&nbsp;import com.factory.contabancaria.service.ContasService;
+&nbsp;import org.springframework.beans.factory.annotation.Autowired;
+&nbsp;import org.springframework.http.HttpStatus;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;import org.springframework.web.bind.annotation.*;
+&nbsp;
+&nbsp;import java.util.ArrayList;
+&nbsp;import java.util.List;
+&nbsp;import java.util.Optional;
+&nbsp;
+&nbsp;@RestController
+&nbsp;@RequestMapping(&quot;/api/contas&quot;)
+<b class="fc">&nbsp;public class ContasController {</b>
+&nbsp;
+&nbsp;    @Autowired
+&nbsp;    ContasService contasService;
+&nbsp;    ContasRepository contasRepository;
+&nbsp;
+&nbsp;    //requisições
+&nbsp;    //GET - Pegar as informações do nosso banco
+&nbsp;    @GetMapping
+&nbsp;    public ResponseEntity&lt;List&lt;ContasModel&gt;&gt; listarTodasContas() {
+<b class="fc">&nbsp;        return ResponseEntity.ok(contasService.listarContas());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    @GetMapping(path = &quot;/{id}&quot;)
+&nbsp;    public ResponseEntity&lt;?&gt; exibeUmaContaPeloId(@PathVariable Long id) {
+<b class="nc">&nbsp;        Optional&lt;ContasModel&gt; contaOpcional = contasService.exibeContaPorId(id);</b>
+<b class="nc">&nbsp;        if (contaOpcional.isEmpty()) {</b>
+<b class="nc">&nbsp;            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(&quot;Conta não encontrada, tente novamente!&quot;);</b>
+&nbsp;        }
+<b class="nc">&nbsp;        return ResponseEntity.ok(contaOpcional.get());</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //POST - Cria uma nova conta dentro do banco
+&nbsp;    @PostMapping
+&nbsp;    public ResponseEntity&lt;ContasModel&gt; cadastrarConta(@RequestBody ContasModel contasModel,
+&nbsp;                                                      ContaFactory contaFactory) {
+<b class="nc">&nbsp;        ContasModel novaConta = contasService.cadastrar(contasModel, contaFactory);</b>
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(novaConta, HttpStatus.CREATED);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;
+&nbsp;    //PUT - Alterar uma conta já existente dentro do banco
+&nbsp;    @PutMapping(path = &quot;/{id}&quot;)
+&nbsp;    public ContasModel atualizarConta(@PathVariable Long id, @RequestBody ContasModel contasModel) {
+<b class="nc">&nbsp;        return contasService.alterar(id, contasModel);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //DELETE - Deleta uma conta já existente dentro do banco
+&nbsp;    @DeleteMapping(path = &quot;/{id}&quot;)
+&nbsp;    public void deletarConta(@PathVariable Long id) {
+<b class="nc">&nbsp;        contasService.deletarConta(id);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //POST - Cria uma nova conta dentro do banco com alguns atributos conforme DTO
+&nbsp;    @PostMapping(path = &quot;/dto&quot;)
+&nbsp;    public ResponseEntity&lt;ContaPostDTO&gt; cadastrarContaDTO(@RequestBody ContaPostDTO contaPostDTO,
+&nbsp;                                                          ContaFactory contaFactory) {
+<b class="nc">&nbsp;        ContasModel contasModel = new ContasModel();</b>
+<b class="nc">&nbsp;        contasModel.setNomeCliente(contaPostDTO.getNomeCliente());</b>
+<b class="nc">&nbsp;        contasModel.setValor_atual_conta(contaPostDTO.getValor_atual_conta());</b>
+<b class="nc">&nbsp;        contasModel.setValor_fornecido(contaPostDTO.getValor_fornecido());</b>
+<b class="nc">&nbsp;        contasModel.setTipo_servico(contaPostDTO.getTipo_servico());</b>
+&nbsp;
+<b class="nc">&nbsp;        ContasModel novaConta = contasService.cadastrar(contasModel, contaFactory);</b>
+<b class="nc">&nbsp;        ContaPostDTO postDTO = new ContaPostDTO();</b>
+<b class="nc">&nbsp;        postDTO.setTipo_servico(novaConta.getTipo_servico());</b>
+<b class="nc">&nbsp;        postDTO.setValor_atual_conta(novaConta.getValor_atual_conta());</b>
+<b class="nc">&nbsp;        postDTO.setValor_fornecido(novaConta.getValor_fornecido());</b>
+<b class="nc">&nbsp;        postDTO.setNomeCliente(novaConta.getNomeCliente());</b>
+&nbsp;
+&nbsp;//        contaGetDTO.setNumero_conta(novaConta.getNumero_conta());
+&nbsp;//        contaGetDTO.setAgencia(novaConta.getAgencia());
+&nbsp;//        contaGetDTO.setNomeCliente(novaConta.getNomeCliente());
+&nbsp;//        contaGetDTO.setValor_atual_conta(novaConta.getValor_atual_conta());
+&nbsp;
+<b class="nc">&nbsp;        return new ResponseEntity&lt;&gt;(postDTO, HttpStatus.CREATED);</b>
+&nbsp;
+&nbsp;    }
+&nbsp;
+&nbsp;    //GET - Listar as informações do banco com os atributos conforme DTO
+&nbsp;    @GetMapping(path = &quot;/dto&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;ContaGetDTO&gt;&gt; listarTodasContasDTO() {
+<b class="fc">&nbsp;        List&lt;ContasModel&gt; contas = contasService.listarContas();</b>
+&nbsp;
+<b class="fc">&nbsp;        List&lt;ContaGetDTO&gt; contaGetDTOS = new ArrayList&lt;&gt;();</b>
+<b class="fc">&nbsp;        for (ContasModel conta : contas) {</b>
+<b class="fc">&nbsp;            ContaGetDTO DTO = new ContaGetDTO();</b>
+<b class="fc">&nbsp;            DTO.setNumero_conta(conta.getNumero_conta());</b>
+<b class="fc">&nbsp;            DTO.setAgencia(conta.getAgencia());</b>
+<b class="fc">&nbsp;            DTO.setNomeCliente(conta.getNomeCliente());</b>
+<b class="fc">&nbsp;            DTO.setValor_atual_conta(conta.getValor_atual_conta());</b>
+&nbsp;
+<b class="fc">&nbsp;            contaGetDTOS.add(DTO);</b>
+<b class="fc">&nbsp;        }</b>
+<b class="fc">&nbsp;        return ResponseEntity.ok(contaGetDTOS);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;    //Endpoint GET para listar contas por nome do usuario conforme DTO
+&nbsp;    @GetMapping(path = &quot;/dto/get/{nomeUsuario}&quot;)
+&nbsp;    public ResponseEntity&lt;List&lt;ContaGetDTO&gt;&gt; listarContasPorNome(@PathVariable String nomeDoUsuario) {
+<b class="nc">&nbsp;        List&lt;ContaGetDTO&gt; contaPorNome = contasService.listarContasPorNome(nomeDoUsuario);</b>
+<b class="nc">&nbsp;        return ResponseEntity.ok(contaPorNome);</b>
+&nbsp;    }
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2023-08-25 17:12</div>
+</div>
+</body>
+</html>
