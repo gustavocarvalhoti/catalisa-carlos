@@ -23,7 +23,7 @@ Certifique-se de ter os seguintes pré-requisitos instalados antes de executar o
 
 ## Como Executar o Projeto
 
-1. Clone, copieou download da pasta deste repositório/projeto.
+1. Clone, copie ou faça download da pasta deste repositório/projeto.
 
 
 2. Navegue até o diretório do projeto onde salvou.
