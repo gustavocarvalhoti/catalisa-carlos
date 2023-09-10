@@ -4,11 +4,8 @@
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
-        <option value="$PROJECT_DIR$/projetos/Parte_2/b04_ContaBancaria_MockWebMVC/pom.xml" />
-        <option value="$PROJECT_DIR$/projetos/Parte_2/b03_GestaoEscolar_MockWebMVC/pom.xml" />
-        <option value="$PROJECT_DIR$/projetos/Parte_2/b02_GestaoEscolar/pom.xml" />
-        <option value="$PROJECT_DIR$/projetos/Parte_2/b01_ContaBancaria/pom.xml" />
         <option value="$PROJECT_DIR$/projetos/Parte_2/b05_appEstoque_Desafio_082023/app/pom.xml" />
+        <option value="$PROJECT_DIR$/projetos/Parte_3/c01_ApiDeVendasSpring_Security/TestesComSpringApiVendas/Vendas/SpringExemplo/pom.xml" />
       </list>
     </option>
   </component>
