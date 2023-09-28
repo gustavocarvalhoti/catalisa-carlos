@@ -13,3 +13,5 @@
 <h4> Tecnologias utilizadas </h4>
 
     Utilizando a tecnologia Java com a IDE IntelliJ
+
+<h4> Ajuste Readme Teste Gus </h4>
