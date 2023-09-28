@@ -10,11 +10,14 @@
         <module name="SpringExemplo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="a20_AWS_LAMBDA" target="11" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="SpringExemplo" options="-parameters" />
-      <module name="app" options="-parameters" />
+      <module name="SpringExemplo" options="" />
+      <module name="app" options="" />
     </option>
   </component>
 </project>
